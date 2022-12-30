@@ -2,6 +2,7 @@ import { NextPage } from 'next';
 import Head from 'next/head';
 import Banner from '../components/Banner';
 import Header from '../components/Header';
+import MovieScrollList from '../components/MovieScrollList';
 import { Movie } from '../typings';
 import requests from '../utils/requests';
 
@@ -40,6 +41,16 @@ const Home = ({
 
       <main className="relative pl-4 pb-24 lg:space-y-24 lg:pl-16 ">
         <Banner netflixOriginals={netflixOriginals} />
+        <section className="md:space-y-24">
+          <MovieScrollList title="Trending Now" movies={trendingNow} />
+          <MovieScrollList title="Top Rated" movies={topRated} />
+          <MovieScrollList title="Action Thrillers" movies={actionMovies} />
+
+          <MovieScrollList title="Comedies" movies={comedyMovies} />
+          <MovieScrollList title="Scary Movies" movies={horrorMovies} />
+          <MovieScrollList title="Romance Movies" movies={romanceMovies} />
+          <MovieScrollList title="Documentaries" movies={documentaries} />
+        </section>
       </main>
     </div>
   );
