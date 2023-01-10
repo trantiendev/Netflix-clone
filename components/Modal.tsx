@@ -57,8 +57,6 @@ const Modal = () => {
         setLoadingPlayer(false)
       );
 
-      console.log('👻', movie);
-
       if (movieData.videos) {
         const indexTrailer = movieData.videos.results?.findIndex(
           (item: Element) => item.type === 'Trailer'
@@ -79,7 +77,7 @@ const Modal = () => {
   };
 
   const handleList = () => {};
-  console.log(trailer);
+
   return (
     <MuiModal
       open={showModal}
@@ -96,6 +94,7 @@ const Modal = () => {
         </button>
 
         <div className="relative pt-[56.25%]">
+
           {loadingPlayer ? (
             <div className="absolute top-0 left-0 right-0 bottom-0 bg-neutral-900/[.7]">
               <CircularProgress
@@ -105,9 +104,11 @@ const Modal = () => {
               />
             </div>
           ) : !trailer ? (
-            <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-xl">
-              This Is A Private Video :(
-            </p>
+            <div className="absolute top-0 left-0 right-0 bottom-0 bg-neutral-900/[.7]">
+              <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-xl">
+                This Is A Private Video :(
+              </p>
+            </div>
           ) : (
             <ReactPlayer
               url={`https://www.youtube.com/watch?v=${trailer}`}
@@ -118,6 +119,7 @@ const Modal = () => {
               muted={muted}
             />
           )}
+
           <div className="absolute bottom-10 flex w-full items-center justify-between px-10">
             <div className="flex space-x-2">
               <button className="flex items-center gap-x-2 rounded bg-white px-8 text-xl font-bold text-black transition hover:bg-[#e6e6e6]">
