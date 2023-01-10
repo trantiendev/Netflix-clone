@@ -3,6 +3,7 @@ import { FaPlay } from 'react-icons/fa';
 import { baseUrl } from '../constants/movie';
 import { Movie } from '../typings';
 import { useEffect, useState } from 'react';
+import useShowModal from '../hooks/useShowModal';
 
 interface Props {
   netflixOriginals: Movie[];
@@ -10,6 +11,7 @@ interface Props {
 
 const Banner = ({ netflixOriginals }: Props) => {
   const [movie, setMovie] = useState<Movie | null>(null);
+  const handleShowModal = useShowModal(movie);
 
   useEffect(() => {
     setMovie(
@@ -26,8 +28,7 @@ const Banner = ({ netflixOriginals }: Props) => {
             movie?.backdrop_path || movie?.poster_path
           }")`,
         }}
-      >
-      </div>
+      ></div>
 
       <h1 className="text-2xl font-bold md:text-4xl lg:text-7xl">
         {movie?.title || movie?.name || movie?.original_name}
@@ -41,7 +42,7 @@ const Banner = ({ netflixOriginals }: Props) => {
           Play
         </button>
 
-        <button className="bannerButton bg-[gray]/70" onClick={() => {}}>
+        <button className="bannerButton bg-[gray]/70" onClick={handleShowModal}>
           <InformationCircleIcon className="h-5 w-5 md:h-8 md:w-8" /> More Info
         </button>
       </div>

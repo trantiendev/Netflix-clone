@@ -1,28 +1,33 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { BellIcon, SearchIcon } from '@heroicons/react/solid';
+import {  BellIcon, SearchIcon } from '@heroicons/react/solid';
+import Image from 'next/legacy/image';
+import useAuth from '../contexts/useAuth';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const { logout } = useAuth(); // tmp
 
   useEffect(() => {
-    const handleScrollHeader = () => (window.scrollY > 0) ? setIsScrolled(true) : setIsScrolled(false);
+    const handleScrollHeader = () =>
+      window.scrollY > 0 ? setIsScrolled(true) : setIsScrolled(false);
 
     window.addEventListener('scroll', handleScrollHeader);
 
     return () => {
-      window.removeEventListener('scroll', handleScrollHeader)
-    }
-  }, [])
+      window.removeEventListener('scroll', handleScrollHeader);
+    };
+  }, []);
 
   return (
     <header className={`${isScrolled ? 'bg-[#141414]' : ''}`}>
       <div className="flex items-center space-x-2 md:space-x-10">
-        <img
-          src="https://upload.wikimedia.org/wikipedia/commons/7/7a/Logonetflix.png"
+        <Image
+          src="/images/Netflix_2015_logo.svg"
           width={100}
-          height={100}
+          height={30}
           className="cursor-pointer object-contain"
+          alt=""
         />
 
         <ul className="hidden space-x-4 md:flex">
@@ -40,9 +45,20 @@ const Header = () => {
         <SearchIcon className="sm hidden h-6 w-6 sm:inline" />
         <p className="hidden lg:inline">Kids</p>
         <BellIcon className="h-6 w-6" />
+        {/* <Link href="/account">
+          <Image
+            src="/images/img-avatar.png"
+            alt="avatar"
+            width={25}
+            height={25}
+            className="cursor-pointer rounded"
+          />
+        </Link> */}
+        {/* TMP */}
         <Link href="/account">
-          <img
-            src="https://mir-s3-cdn-cf.behance.net/project_modules/disp/1bdc9a33850498.56ba69ac2ba5b.png"
+          <Image
+            onClick={logout}
+            src="/images/img-avatar.png"
             alt="avatar"
             width={25}
             height={25}
