@@ -1,8 +1,12 @@
 import { NextPage } from 'next';
 import Head from 'next/head';
+import { useRecoilState } from 'recoil';
+import { modalState } from '../atoms/modalAtom';
 import Banner from '../components/Banner';
 import Header from '../components/Header';
+import Modal from '../components/Modal';
 import MovieScrollList from '../components/MovieScrollList';
+import useAuth from '../contexts/useAuth';
 import { Movie } from '../typings';
 import requests from '../utils/requests';
 
@@ -27,6 +31,10 @@ const Home = ({
   topRated,
   trendingNow,
 }: Props) => {
+  const { user, loading } = useAuth();
+  const showModal = useRecoilState(modalState);
+
+  if (loading) return null;
 
   return (
     <div
@@ -52,6 +60,7 @@ const Home = ({
           <MovieScrollList title="Documentaries" movies={documentaries} />
         </section>
       </main>
+      {showModal && <Modal />}
     </div>
   );
 };
